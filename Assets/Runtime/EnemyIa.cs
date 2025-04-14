@@ -1,39 +1,19 @@
 using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class EnemyIa : MonoBehaviour
 {
-    Camera _camera;
-    [SerializeField] PoolEnemy _enemy;
-    [SerializeField] Transform _transformA;
-    [SerializeField] Transform _transformB;
-    private GameObject enemy;
-    [SerializeField] private GameObject lol;
-    
+    Rigidbody myrigidbody;
 
-    private void Awake()
+    private void Start()
     {
-        _camera = Camera.main;
+        myrigidbody = this.GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    public void Move()
     {
-       if (Input.GetKeyDown(KeyCode.Space))
-       {
-           SpawnEnemy();
-       }
-       if (enemy != null)
-       {
-           enemy.transform.position = Vector3.Lerp(enemy.transform.position, _transformB.position, 0.02f);
-       }
-        
+        myrigidbody = this.GetComponent<Rigidbody>();
+        myrigidbody.AddForce(Vector3.up * 10f, ForceMode.Impulse);
     }
-    
-    void SpawnEnemy()
-    {
-        enemy = _enemy.GetEnemy();
-        enemy.SetActive(true);
-        enemy.transform.position = _transformA.position;
-    }
+
 }
